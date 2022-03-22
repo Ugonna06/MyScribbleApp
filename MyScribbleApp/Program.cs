@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -117,8 +118,33 @@ namespace MyScribbleApp
             //Console.WriteLine(TunjiXMatrixSum(test));
 
             //Console.WriteLine(OccurenceCount(new int[] { 25, 2, 3, 57,38,41 }));
+            List<string> a = new List<string>() { "INSERT", "fries", "4" };
+            List<string> b = new List<string>() { "INSERT", "soda", "2" };
+            List<string> c = new List<string>() { "VIEW", "-", "-" };
+            List<string> d = new List<string>() { "VIEW", "-", "-" };
+            List<string> e = new List<string>() { "INSERT", "hamburger", "5" };
+            List<string> f = new List<string>() { "VIEW", "-", "-" };
+            List<string> g = new List<string>() { "INSERT", "nuggets", "4" };
+            List<string> h = new List<string>() { "INSERT", "cookie", "1" };
+            List<string> i = new List<string>() { "VIEW", "-", "-" };
+            List<string> j = new List<string>() { "VIEW", "-", "-" };
+            List<string> k = new List<string>() { "INSERT", "fries", "4" };
+            List<string> l = new List<string>() { "INSERT", "soda", "2" };
+            List<string> m = new List<string>() { "VIEW", "-", "-" };
+            List<string> n = new List<string>() { "VIEW", "-", "-" };
+            List<string> o = new List<string>() { "INSERT", "hamburger", "5" };
+            List<string> p = new List<string>() { "VIEW", "-", "-" };
+            List<string> q = new List<string>() { "INSERT", "nuggets", "4" };
+            List<string> r = new List<string>() { "INSERT", "cookie", "1" };
+            List<string> s = new List<string>() { "VIEW", "-", "-" };
+            List<string> t = new List<string>() { "VIEW", "-", "-" };
 
-            Console.WriteLine(RemoveDuplicates(new[] { 1, 1, 2 }));
+
+
+            List<List<string>> testcase = new List<List<string>>() { a, b, c, d, e, f, g, h, i, j, k,l ,m ,n,o,p,q,r,s,t };
+
+
+            Console.WriteLine(getItems(testcase));
 
         }
 
@@ -854,6 +880,50 @@ namespace MyScribbleApp
             return result;
         }
 
+        public static List<string> getItems (List<List<string>> entries)
+        {
+            List<string> items = new List<string>();
+            List<itemList> insertItemsList = new List<itemList>();
+
+            const string insert = "INSERT";
+            const string view = "VIEW";
+            int counter = 0;
+            itemList entry = new itemList();
+
+            foreach (var item in entries)
+            {
+                if (item[0].ToLower() == insert.ToLower())
+                {
+                    insertItemsList.Add(new itemList(item[1], item[2]));
+                    insertItemsList = insertItemsList.OrderBy(a => a.price).ThenBy(a => a.itemName).ToList();
+                    //var t = entries.OrderBy(a => a[2]);
+                    continue;
+                }
+
+                if (item[0].ToLower() == view.ToLower())
+                {
+                    entry = insertItemsList[counter];
+                    items.Add(entry.itemName);
+                    counter++;
+                    continue;
+                }
+            }
+            return items;
+        }
         
+    }
+    class itemList
+    {
+        public string itemName;// { get; set; }
+        public int price;// { get; set; }
+        public itemList(string itemNam, string pric)
+        {
+            itemName = itemNam;
+            price = int.Parse(pric);
+        }
+        public itemList()
+        {
+
+        }
     }
 }
