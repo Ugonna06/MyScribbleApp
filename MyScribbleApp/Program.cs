@@ -461,9 +461,19 @@ namespace MyScribbleApp
 
         public static int RemoveDuplicates(int[] nums)
         {
-            int[] disNum = nums.Distinct().ToArray();
-            int res = nums.Count() - disNum.Count();
-            return res;
+            List<int> stack = new List<int>();
+            for (int i = 0; i < nums.Length; i++){
+                if (stack.Contains(nums[i]))
+                {
+                    nums[i] = 101;
+                }
+                else
+                {
+                    stack.Add(nums[i]);
+                }
+            }
+            Array.Sort(nums);
+            return stack.Count;
         }
 
 
@@ -702,7 +712,7 @@ namespace MyScribbleApp
 
                 eleFront = matrix.ElementAt(i).ElementAt(i);
                 eleBack = matrix.ElementAt(i).ElementAt(invPos);
-                sum = sum + (eleFront - eleBack);
+                sum += (eleFront - eleBack);
             }
             int ans = Math.Abs(sum);
 
@@ -731,15 +741,15 @@ namespace MyScribbleApp
             return sb.ToString();
         }
 
-        public static int JaggedArrayWordCheck(char[][] board, string word)
+        public static int JaggedArrayWordCheck(char[][] board, string word)//this has not been done.
         {
             int matches = 0;
 
-            for (int i = 0; i < board.Count(); i++)
+            for (int i = 0; i < board.Length; i++)
             {
-                for (int j = 0; j < board[i].Count(); j++)
+                for (int j = 0; j < board[i].Length; j++)
                 {
-                    Dictionary<char, string> wordMatch = new Dictionary<char, string>() { {'h', "" }, {'v', "" },{'d', "" } };
+                    Dictionary<char, string> wordMatch = new() { {'h', "" }, {'v', "" },{'d', "" } };
                     for (int k = 0; k < word.Length; k++)
                     {
 
@@ -910,7 +920,16 @@ namespace MyScribbleApp
             }
             return items;
         }
-        
+
+        public static IList<int> FindSubstring(string s, string[] words)
+        {
+            List<int> result = new();
+
+
+
+            return result;
+        }
+
     }
     class itemList
     {
