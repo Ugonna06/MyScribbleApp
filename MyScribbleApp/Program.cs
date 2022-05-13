@@ -934,37 +934,38 @@ namespace MyScribbleApp
 
         public static IList<int> FindSubstring(string s, string[] words)
         {
-            List<int> result = new();
+            List<int> result = new(); //created an array for the result.
 
-            int wordComboLength = string.Join("", words).Length;
-            int singleWordLength = words[0].Length;
+            int wordComboLength = string.Join("", words).Length; // get the length of the words joined together.
+            int singleWordLength = words[0].Length; //get the length of a single item in the words array.
 
             for (int i = 0; i < s.Length; i++)
             {
-                int startPoint = i;
-                int diff = s.Length - startPoint;
+                int diff = s.Length - i;
+
                 if (diff < wordComboLength) break;
 
-                string checkStr = s.Substring(startPoint, wordComboLength);
+                string checkStr = s.Substring(i, wordComboLength); // create a substring with length of the wordComboLength.
                 int position;
                 bool succesfulCheck = false;
-                List<string> wordCheck = words.ToList();
-                for (int j = 0, k = 1; j < checkStr.Length; j++, k++)
+                List<string> wordCheck = words.ToList(); //insert the words into a disposable list/array. 
+
+                for (int j = 0, k = 1; j < checkStr.Length; j++, k++)// we implemented the sliding window in this for loop.
                 {
-                    string check = checkStr.Substring(j, singleWordLength);
-                    position = wordCheck.IndexOf(check);
-                    if (position == -1)
+                    string check = checkStr.Substring(j, singleWordLength); // create a substring with the length of the singleWordLength.
+                    position = wordCheck.IndexOf(check); // we searched for the substring in our disposable array.
+                    if (position == -1)// if it cannot find the item, then this is not the substring with the answer.
                     {
                         succesfulCheck = false;
                         break;
                     }
                     succesfulCheck = true;
-                    wordCheck.RemoveAt(position);
+                    wordCheck.RemoveAt(position);// any substring found will be removed from the disposable array so we won't have problems with repeating words.
                     j = (k * singleWordLength) - 1;
                 }
                 if (succesfulCheck == true)
                 {
-                    result.Add(startPoint);
+                    result.Add(i);
                 }
             }
             return result;
