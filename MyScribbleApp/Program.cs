@@ -117,34 +117,45 @@ namespace MyScribbleApp
 
             //Console.WriteLine(TunjiXMatrixSum(test));
 
-            //Console.WriteLine(OccurenceCount(new int[] { 25, 2, 3, 57,38,41 }));
-            List<string> a = new List<string>() { "INSERT", "fries", "4" };
-            List<string> b = new List<string>() { "INSERT", "soda", "2" };
-            List<string> c = new List<string>() { "VIEW", "-", "-" };
-            List<string> d = new List<string>() { "VIEW", "-", "-" };
-            List<string> e = new List<string>() { "INSERT", "hamburger", "5" };
-            List<string> f = new List<string>() { "VIEW", "-", "-" };
-            List<string> g = new List<string>() { "INSERT", "nuggets", "4" };
-            List<string> h = new List<string>() { "INSERT", "cookie", "1" };
-            List<string> i = new List<string>() { "VIEW", "-", "-" };
-            List<string> j = new List<string>() { "VIEW", "-", "-" };
-            List<string> k = new List<string>() { "INSERT", "fries", "4" };
-            List<string> l = new List<string>() { "INSERT", "soda", "2" };
-            List<string> m = new List<string>() { "VIEW", "-", "-" };
-            List<string> n = new List<string>() { "VIEW", "-", "-" };
-            List<string> o = new List<string>() { "INSERT", "hamburger", "5" };
-            List<string> p = new List<string>() { "VIEW", "-", "-" };
-            List<string> q = new List<string>() { "INSERT", "nuggets", "4" };
-            List<string> r = new List<string>() { "INSERT", "cookie", "1" };
-            List<string> s = new List<string>() { "VIEW", "-", "-" };
-            List<string> t = new List<string>() { "VIEW", "-", "-" };
+            ////Console.WriteLine(OccurenceCount(new int[] { 25, 2, 3, 57,38,41 }));
+            //List<string> a = new List<string>() { "INSERT", "fries", "4" };
+            //List<string> b = new List<string>() { "INSERT", "soda", "2" };
+            //List<string> c = new List<string>() { "VIEW", "-", "-" };
+            //List<string> d = new List<string>() { "VIEW", "-", "-" };
+            //List<string> e = new List<string>() { "INSERT", "hamburger", "5" };
+            //List<string> f = new List<string>() { "VIEW", "-", "-" };
+            //List<string> g = new List<string>() { "INSERT", "nuggets", "4" };
+            //List<string> h = new List<string>() { "INSERT", "cookie", "1" };
+            //List<string> i = new List<string>() { "VIEW", "-", "-" };
+            //List<string> j = new List<string>() { "VIEW", "-", "-" };
+            //List<string> k = new List<string>() { "INSERT", "fries", "4" };
+            //List<string> l = new List<string>() { "INSERT", "soda", "2" };
+            //List<string> m = new List<string>() { "VIEW", "-", "-" };
+            //List<string> n = new List<string>() { "VIEW", "-", "-" };
+            //List<string> o = new List<string>() { "INSERT", "hamburger", "5" };
+            //List<string> p = new List<string>() { "VIEW", "-", "-" };
+            //List<string> q = new List<string>() { "INSERT", "nuggets", "4" };
+            //List<string> r = new List<string>() { "INSERT", "cookie", "1" };
+            //List<string> s = new List<string>() { "VIEW", "-", "-" };
+            //List<string> t = new List<string>() { "VIEW", "-", "-" };
 
 
 
-            List<List<string>> testcase = new List<List<string>>() { a, b, c, d, e, f, g, h, i, j, k,l ,m ,n,o,p,q,r,s,t };
+            //List<List<string>> testcase = new List<List<string>>() { a, b, c, d, e, f, g, h, i, j, k,l ,m ,n,o,p,q,r,s,t };
 
 
-            Console.WriteLine(getItems(testcase));
+            //Console.WriteLine(getItems(testcase));
+
+            string s = "lingmindraboofooowingdingbarrwingmonkeypoundcake";
+            string[] words = new string[] { "fooo", "barr", "wing", "ding", "wing" };
+
+            string s1 = "barfoothefoobarman";
+            string[] words1 = new string[] { "foo", "bar" };
+
+            string s2 = "ababaab";
+            string[] words2 = new string[] { "ab", "ba", "ba" };
+
+            Console.WriteLine(FindSubstring(s2, words2));
 
         }
 
@@ -925,8 +936,37 @@ namespace MyScribbleApp
         {
             List<int> result = new();
 
+            int wordComboLength = string.Join("", words).Length;
+            int singleWordLength = words[0].Length;
 
+            for (int i = 0; i < s.Length; i++)
+            {
+                int startPoint = i;
+                int diff = s.Length - startPoint;
+                if (diff < wordComboLength) break;
 
+                string checkStr = s.Substring(startPoint, wordComboLength);
+                int position;
+                bool succesfulCheck = false;
+                List<string> wordCheck = words.ToList();
+                for (int j = 0, k = 1; j < checkStr.Length; j++, k++)
+                {
+                    string check = checkStr.Substring(j, singleWordLength);
+                    position = wordCheck.IndexOf(check);
+                    if (position == -1)
+                    {
+                        succesfulCheck = false;
+                        break;
+                    }
+                    succesfulCheck = true;
+                    wordCheck.RemoveAt(position);
+                    j = (k * singleWordLength) - 1;
+                }
+                if (succesfulCheck == true)
+                {
+                    result.Add(startPoint);
+                }
+            }
             return result;
         }
 
