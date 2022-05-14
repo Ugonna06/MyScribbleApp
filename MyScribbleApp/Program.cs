@@ -146,16 +146,11 @@ namespace MyScribbleApp
 
             //Console.WriteLine(getItems(testcase));
 
-            string s = "lingmindraboofooowingdingbarrwingmonkeypoundcake";
-            string[] words = new string[] { "fooo", "barr", "wing", "ding", "wing" };
+            //string s3 = "wordgoodgoodgoodbestword";
+            //string[] words3 = new string[] { "word", "good", "best", "good" }; 
+            //Console.WriteLine(FindSubstring(s3, words3));
 
-            string s1 = "barfoothefoobarman";
-            string[] words1 = new string[] { "foo", "bar" };
-
-            string s2 = "ababaab";
-            string[] words2 = new string[] { "ab", "ba", "ba" };
-
-            Console.WriteLine(FindSubstring(s2, words2));
+            countApplesAndOranges(7, 10, 4, 12, new List<int> { 2, 3, -4 }, new List<int> { 3, -2, -4 });
 
         }
 
@@ -950,25 +945,70 @@ namespace MyScribbleApp
                 bool succesfulCheck = false;
                 List<string> wordCheck = words.ToList(); //insert the words into a disposable list/array. 
 
-                for (int j = 0, k = 1; j < checkStr.Length; j++, k++)// we implemented the sliding window in this for loop.
+                for (int j = 0, k = 1; j < checkStr.Length; j++, k++)
                 {
-                    string check = checkStr.Substring(j, singleWordLength); // create a substring with the length of the singleWordLength.
-                    position = wordCheck.IndexOf(check); // we searched for the substring in our disposable array.
-                    if (position == -1)// if it cannot find the item, then this is not the substring with the answer.
+                    string check = checkStr.Substring(j, singleWordLength);
+                    position = wordCheck.IndexOf(check);
+                    if (position == -1)
                     {
                         succesfulCheck = false;
                         break;
                     }
                     succesfulCheck = true;
-                    wordCheck.RemoveAt(position);// any substring found will be removed from the disposable array so we won't have problems with repeating words.
+                    wordCheck.RemoveAt(position);
                     j = (k * singleWordLength) - 1;
                 }
-                if (succesfulCheck == true)
-                {
-                    result.Add(i);
-                }
+
+                if (succesfulCheck == true)  result.Add(i);
             }
             return result;
+        }
+
+        public static void countApplesAndOranges(int s, int t, int a, int b, List<int> apples, List<int> oranges)
+        {
+            int applecount = 0;
+            int orangeCount = 0;
+
+            foreach (var apple in apples)
+            {
+                int distance = apple + a;
+                if (distance >= s && distance <= t)
+                {
+                    applecount++;
+                }
+            }
+
+            foreach (var orange in oranges)
+            {
+                int distance = orange + a;
+                if (distance >= s && distance <= t)
+                {
+                    orangeCount++;
+                }
+            }
+
+            //A much shorter way of achieving this.
+            var fallenApples = apples.Select(x => x + a).ToList();
+            var fallenOranges = oranges.Select(x => x + b).ToList();
+
+            int houseApples = fallenApples.Where(x => (x >= s && x <= t)).Count();
+            int houseOranges = fallenOranges.Where(x => (x >= s && x <= t)).Count();
+
+            //a much much shorter way of using ninja code to do this
+            int applesInHouseRange = apples.Select(x => x + a).Where(x => (x >= s && x <= t)).Count();
+            int orangesInHouseRange = oranges.Select(x => x + b).Where(x => (x >= s && x <= t)).Count();
+
+            Console.WriteLine(applecount);
+            Console.WriteLine(orangeCount);
+            Console.WriteLine("=========================");
+            Console.WriteLine("=========================");
+            Console.WriteLine(houseApples);
+            Console.WriteLine(houseOranges);
+            Console.WriteLine("=========================");
+            Console.WriteLine("=========================");
+            Console.WriteLine(applesInHouseRange);
+            Console.WriteLine(orangesInHouseRange);
+
         }
 
     }
