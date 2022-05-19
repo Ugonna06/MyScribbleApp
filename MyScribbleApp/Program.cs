@@ -152,6 +152,26 @@ namespace MyScribbleApp
 
             //countApplesAndOranges(7, 10, 4, 12, new List<int> { 2, 3, -4 }, new List<int> { 3, -2, -4 });
 
+            // Given value of N & M
+            int N = 3, M = 3;
+
+            // Given arrays
+            List<int> H = new List<int> { 2 };
+            List<int> V = new List<int> { 2 };
+
+            // Function call to find the largest
+            // area when a series of horizontal &
+            // vertical bars are removed
+            //Console.WriteLine(prison(N, M, H, V));
+
+            Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4, 5 }));
+            Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 5 }));
+            Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 1 }));
+            Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4 }));
+            Console.WriteLine(ElvisArrayQuest(new int[] { }));
+            Console.WriteLine(ElvisArrayQuest(new int[] { 10 }));
+
+
             //var mediumPyramid = new[]
             //{
             //  new [] {75},
@@ -537,7 +557,7 @@ namespace MyScribbleApp
             }
 
             List<int> verticalBars = new List<int>();
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i <= m+1; i++)
             {
                 verticalBars.Add(i);
             }
@@ -556,7 +576,7 @@ namespace MyScribbleApp
 
             int largestVSpace = 0;
             int largestHSpace = 0;
-
+            //don't know what the fuck I was upto here.
             for (int i = 0; i < verticalBars.Count(); i++)
             {
                 int selected = verticalBars[i];
@@ -1036,6 +1056,26 @@ namespace MyScribbleApp
             Console.WriteLine(applesInHouseRange);
             Console.WriteLine(orangesInHouseRange);
 
+        }
+
+        public static int ElvisArrayQuest(int[] arrayInput)
+        {
+            if (arrayInput.Length <= 0 || (arrayInput.Length % 2) == 0) return 0;
+            if (arrayInput.Length == 1) return 1;
+
+            int ret = 1;
+            int middleIndex = (arrayInput.Length - 1) / 2;
+            int middleNumber = arrayInput[middleIndex];
+
+            for (int i = 0, j = arrayInput.Length - 1; i < arrayInput.Length/2; i++, j--)
+            {
+                if(arrayInput[i] <= middleNumber || arrayInput[j] <= middleNumber)
+                {
+                    ret = 0;
+                    break;
+                }
+            }
+            return ret;
         }
 
         public static int LongestSlideDown(int[][] pyramid)
