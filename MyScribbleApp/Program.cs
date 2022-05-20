@@ -164,13 +164,24 @@ namespace MyScribbleApp
             // vertical bars are removed
             //Console.WriteLine(prison(N, M, H, V));
 
-            Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4, 5 }));
-            Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 5 }));
-            Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 1 }));
-            Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4 }));
-            Console.WriteLine(ElvisArrayQuest(new int[] { }));
-            Console.WriteLine(ElvisArrayQuest(new int[] { 10 }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4, 5 }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 5 }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { 3, 2, 1, 4, 1 }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { 1, 2, 3, 4 }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { }));
+            //Console.WriteLine(ElvisArrayQuest(new int[] { 10 }));
 
+
+            //Console.WriteLine(equivalentArrays(new[] { 0, 1, 2 }, new[] { 2, 0, 1 }));
+            //Console.WriteLine(equivalentArrays(new[] { 0, 1, 2, 1 }, new[] { 2, 0, 1 }));
+            //Console.WriteLine(equivalentArrays(new[] { 2, 0, 1 }, new[] { 0, 1, 2, 1 }));
+            //Console.WriteLine(equivalentArrays(new[] { 0, 5, 5, 5, 1,2, 1 }, new[] { 5, 2, 0, 1 }));
+            //Console.WriteLine(equivalentArrays(new[] { 5, 2, 0, 1 }, new[] { 0, 5, 5, 5, 1, 2, 1 }));
+            //Console.WriteLine(equivalentArrays(new[] { 0, 2, 1, 2 }, new[] { 3, 1, 2, 0 }));
+            //Console.WriteLine(equivalentArrays(new[] { 3, 1, 2, 0 }, new[] { 0, 2, 1, 0 }));
+            //Console.WriteLine(equivalentArrays(new[] { 1, 1, 1, 1, 1, 1 }, new[] { 1, 1, 1, 1, 1, 2 }));
+            ////Console.WriteLine(equivalentArrays(new[] { }, new[] { 3, 1, 1, 1, 1, 2 }));
+            ////Console.WriteLine(equivalentArrays(new[] { }, new[] { }));
 
             //var mediumPyramid = new[]
             //{
@@ -194,7 +205,39 @@ namespace MyScribbleApp
             //var result = LongestSlideDown(mediumPyramid);
             //Console.WriteLine(result);
 
-            Console.WriteLine(playPass("", 3));
+            //Console.WriteLine(playPass("", 3));
+
+            //Console.WriteLine(is123Array(new int[] { 2, 3, 5, 7, 11 }));
+            //Console.WriteLine(is123Array(new int[] { 2, 3, 6, 7, 11 }));
+            //Console.WriteLine(is123Array(new int[] { 2, 3, 4, 5, 6, 7, 8, 9, 10 }));
+            //Console.WriteLine(is123Array(new int[] { 2, 4, 8, 16, 32 }));
+            //Console.WriteLine(is123Array(new int[] { 3, 9, 27, 7, 1, 1, 1, 1, 1 }));
+
+            Console.WriteLine("Tunji");
+            Console.WriteLine(isDigitIncreasingTunji(7));
+            Console.WriteLine(isDigitIncreasingTunji(36));
+            Console.WriteLine(isDigitIncreasingTunji(984));
+            Console.WriteLine(isDigitIncreasingTunji(7404));
+            Console.WriteLine(isDigitIncreasingTunji(37));
+            Console.WriteLine(isDigitIncreasingTunji(111105));
+
+
+            Console.WriteLine("TOBI");
+            Console.WriteLine(isDigitIncreasingTobi(7));
+            Console.WriteLine(isDigitIncreasingTobi(36));
+            Console.WriteLine(isDigitIncreasingTobi(984));
+            Console.WriteLine(isDigitIncreasingTobi(7404));
+            Console.WriteLine(isDigitIncreasingTobi(37));
+            Console.WriteLine(isDigitIncreasingTobi(111105));
+
+
+            Console.WriteLine("Ugonna");
+            Console.WriteLine(isDigitIncreasing(7));
+            Console.WriteLine(isDigitIncreasing(36));
+            Console.WriteLine(isDigitIncreasing(984));
+            Console.WriteLine(isDigitIncreasing(7404));
+            Console.WriteLine(isDigitIncreasing(37));
+            Console.WriteLine(isDigitIncreasing(111105));
 
         }
 
@@ -1096,7 +1139,7 @@ namespace MyScribbleApp
             // your code
             string test = "BZ";
 
-            var split = test.Split('');
+            var split = test.Split('a');
             var newWord = "";
 
             foreach (var item in split)
@@ -1107,6 +1150,164 @@ namespace MyScribbleApp
             }
 
             return "";
+        }
+
+        public static int equivalentArrays(int[] a1, int[] a2)
+        {
+            int result = 1;
+
+            if (a1.Length == 0 && a2.Length == 0) return 1;
+
+            if ((a1.Length > 0 && a2.Length == 0) || (a1.Length == 0 && a2.Length > 0)) return 0;
+
+            List<int> a = a1.Distinct().ToList();
+            List<int> b = a2.Distinct().ToList();
+
+            foreach (var item in a)
+            {
+                int index = b.IndexOf(item);
+                if(index >= 0)
+                {
+                    b.Remove(item);
+                }
+            }
+            foreach (var item in a2.Distinct().ToList())
+            {
+                int index = a.IndexOf(item);
+                if (index >= 0)
+                {
+                    a.Remove(item);
+                }
+            }
+
+            if (b.Count > 0 || a.Count > 0) return 0;
+            return result;
+        }
+
+        public static int is123Array(int[] a)
+        {
+            int is235Arr;
+            int aLength = a.Length;
+            int count2 = 0;
+            int count3 = 0;
+            int count5 = 0;
+            int countNot = 0;
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                bool is235 = false;
+                if (a[i] % 2 == 0)
+                {
+                    is235 = true;
+                    count2++;
+                }
+                if (a[i] % 3 == 0)
+                {
+                    is235 = true;
+                    count3++;
+                }
+                if (a[i] % 5 == 0)
+                {
+                    is235 = true;
+                    count5++;
+                }
+
+                if (!is235)
+                {
+                    countNot++;
+                }
+            }
+
+            is235Arr = count2 + count3 + count5 + countNot;
+
+            if (is235Arr == aLength) return 1;
+
+            return 0;
+        }
+
+        public static int isDigitIncreasing(int n) // failed tunji's angle at first but after refaactoring it passed.
+        {
+            int findTier = n.ToString().Length;
+            if (findTier == 1) return 1;
+
+            for (int i = 1; i <= 9; i++)
+            {
+                int sum = 0;
+                int multi;
+                for (int j = 1; j <= 200; j++)
+                {
+                    multi = Convert.ToInt32(string.Concat(Enumerable.Repeat("1", j)));
+                    sum += i * multi;
+                    if (sum == n) return 1;
+                    if (sum > n) break;
+                }
+            }
+            return 0;
+        }
+
+        public static int isDigitIncreasingTunji(int n)// passed the test but failed tunji's angle
+        {
+            int res = 0;
+            for (int k = 1; k <= 9; k++)
+            {
+                res = Repeat(n, k);
+
+                if (res == n)
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
+
+
+        }
+        private static int Repeat(int n, int j)
+        {
+            int len = n.ToString().Length;
+            string c = j.ToString();
+
+
+            List<int> str = new List<int>(len);
+            for (int i = 1; i <= len; i++)
+            {
+                string result = String.Concat(Enumerable.Repeat(c, i));
+                str.Add(Convert.ToInt32(result));
+            }
+
+            return str.Sum();
+
+
+        }
+
+        public static int isDigitIncreasingTobi(int n)
+        {
+            //int strVal = n.
+            int len = n.ToString().Length;
+
+            var strVal = n.ToString();
+
+            var currentDigitStr = strVal.Substring(0, 1);
+
+            int currentDigitInt = Int32.Parse(currentDigitStr) - 1;
+
+
+            int repeatVal = 0;
+            int sum = 0;
+
+            for (int j = 1; j < 10; j++)
+            {
+                for (int i = 1; i <= len; i++)
+                {
+                    repeatVal = Int32.Parse(String.Concat(Enumerable.Repeat(j.ToString(), i)));
+                    sum = sum + repeatVal;
+                    if (sum == n)
+                    {
+                        return 1;
+                    }
+                }
+            }
+            return 0;
         }
     }
     class itemList
