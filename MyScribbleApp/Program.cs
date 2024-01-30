@@ -213,32 +213,70 @@ namespace MyScribbleApp
             //Console.WriteLine(is123Array(new int[] { 2, 4, 8, 16, 32 }));
             //Console.WriteLine(is123Array(new int[] { 3, 9, 27, 7, 1, 1, 1, 1, 1 }));
 
-            Console.WriteLine("Tunji");
-            Console.WriteLine(isDigitIncreasingTunji(7));
-            Console.WriteLine(isDigitIncreasingTunji(36));
-            Console.WriteLine(isDigitIncreasingTunji(984));
-            Console.WriteLine(isDigitIncreasingTunji(7404));
-            Console.WriteLine(isDigitIncreasingTunji(37));
-            Console.WriteLine(isDigitIncreasingTunji(111105));
+            //Console.WriteLine("Tunji");
+            //Console.WriteLine(isDigitIncreasingTunji(7));
+            //Console.WriteLine(isDigitIncreasingTunji(36));
+            //Console.WriteLine(isDigitIncreasingTunji(984));
+            //Console.WriteLine(isDigitIncreasingTunji(7404));
+            //Console.WriteLine(isDigitIncreasingTunji(37));
+            //Console.WriteLine(isDigitIncreasingTunji(111105));
 
 
-            Console.WriteLine("TOBI");
-            Console.WriteLine(isDigitIncreasingTobi(7));
-            Console.WriteLine(isDigitIncreasingTobi(36));
-            Console.WriteLine(isDigitIncreasingTobi(984));
-            Console.WriteLine(isDigitIncreasingTobi(7404));
-            Console.WriteLine(isDigitIncreasingTobi(37));
-            Console.WriteLine(isDigitIncreasingTobi(111105));
+            //Console.WriteLine("TOBI");
+            //Console.WriteLine(isDigitIncreasingTobi(7));
+            //Console.WriteLine(isDigitIncreasingTobi(36));
+            //Console.WriteLine(isDigitIncreasingTobi(984));
+            //Console.WriteLine(isDigitIncreasingTobi(7404));
+            //Console.WriteLine(isDigitIncreasingTobi(37));
+            //Console.WriteLine(isDigitIncreasingTobi(111105));
 
 
-            Console.WriteLine("Ugonna");
-            Console.WriteLine(isDigitIncreasing(7));
-            Console.WriteLine(isDigitIncreasing(36));
-            Console.WriteLine(isDigitIncreasing(984));
-            Console.WriteLine(isDigitIncreasing(7404));
-            Console.WriteLine(isDigitIncreasing(37));
-            Console.WriteLine(isDigitIncreasing(111105));
+            //Console.WriteLine("Ugonna");
+            //Console.WriteLine(isDigitIncreasing(7));
+            //Console.WriteLine(isDigitIncreasing(36));
+            //Console.WriteLine(isDigitIncreasing(984));
+            //Console.WriteLine(isDigitIncreasing(7404));
+            //Console.WriteLine(isDigitIncreasing(37));
+            //Console.WriteLine(isDigitIncreasing(111105));
 
+            //Console.WriteLine(5 / 2);
+
+            Console.WriteLine(FindMedianSortedArrays(new int[] { }, new int[] { 2, 3}));
+
+
+        }
+
+        public static double FindMedianSortedArrays(int[] nums1, int[] nums2)
+        {
+            int[] mergedArray;
+
+            if (nums1.Length == 0 || nums2.Length == 0)
+            {
+                mergedArray = nums1.Length > 0 ? nums1 : nums2;
+            }
+            else
+            {
+                mergedArray = nums1.Concat(nums2).ToArray();
+                Array.Sort(mergedArray);
+            }
+
+            int arrLength = mergedArray.Length;
+
+            if(arrLength == 1) return mergedArray[0];
+
+            double median;
+            int medianPos = arrLength / 2;
+            if (arrLength % 2 == 0)
+            {
+                median = (mergedArray[medianPos - 1] + mergedArray[medianPos]);
+                median = median / 2;
+                return median;
+            }
+            else
+            {
+                median = mergedArray[medianPos];
+                return median;
+            }
         }
 
         public static int ValidateIPAddress(string IP)
